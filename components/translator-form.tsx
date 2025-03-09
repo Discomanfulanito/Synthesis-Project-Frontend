@@ -1,9 +1,8 @@
 "use client"
 
 import type React from "react"
+
 import { useState } from "react"
-
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,6 +12,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { TranslatorResults } from "@/components/translator-results"
+import type { Translator } from "@/lib/types"
+import { findBestTranslator } from "@/lib/translator-matcher"
 import { Globe, Clock, FileText, Award, ArrowRight } from "lucide-react"
 
 export default function TranslatorForm() {
@@ -27,11 +29,21 @@ export default function TranslatorForm() {
     additionalNotes: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [showResults, setShowResults] = useState(false)
+  const [translators, setTranslators] = useState<Translator[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("aaa")
-    return
+    setIsSubmitting(true)
+
+    // Simulate API call
+    setTimeout(() => {
+      const results = findBestTranslator(formData)
+      setTranslators(results)
+      setShowResults(true)
+      setIsSubmitting(false)
+    }, 1000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -56,14 +68,14 @@ export default function TranslatorForm() {
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-2">
           <Globe className="h-8 w-8 text-primary" />
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-red-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
             iDISC
           </h1>
         </div>
         <ThemeToggle />
       </div>
 
-
+      {!showResults ? (
         <Card className="w-full border border-border/40 shadow-lg animate-fade-in">
           <CardHeader className="pb-2 border-b">
             <CardTitle className="text-2xl">Making assignment easy</CardTitle>
@@ -143,9 +155,9 @@ export default function TranslatorForm() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <Label htmlFor="wordCount">Budget</Label>
+                        <Label htmlFor="wordCount">Word Count</Label>
                         <span className="text-sm text-muted-foreground">
-                          ${formData.wordCount.toLocaleString()}
+                          {formData.wordCount.toLocaleString()} words
                         </span>
                       </div>
                       <Input
@@ -249,18 +261,33 @@ export default function TranslatorForm() {
               <div className="pt-4 animate-slide-up stagger-4">
                 <Button
                   type="submit"
-                  className="w-full py-6 text-lg group relative overflow-hidden hover:cursor-pointer"
+                  className="w-full py-6 text-lg group relative overflow-hidden"
+                  disabled={isSubmitting}
                 >
+                  {isSubmitting ? (
+                    <div className="flex items-center gap-2">
+                      <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
+                      <span>Finding your perfect translator...</span>
+                    </div>
+                  ) : (
                     <div className="flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
                       <span>Find Best Translator</span>
                       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </div>
+                  )}
                 </Button>
               </div>
             </form>
           </CardContent>
         </Card>
-      
+      ) : (
+        <div className="space-y-6 animate-fade-in">
+          <Button variant="outline" onClick={() => setShowResults(false)} className="mb-4">
+            Back to Form
+          </Button>
+          <TranslatorResults translators={translators} />
+        </div>
+      )}
     </div>
   )
 }
