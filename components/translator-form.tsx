@@ -15,7 +15,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { TranslatorResults } from "@/components/translator-results"
 import type { Translator } from "@/lib/types"
 import { findBestTranslator } from "@/lib/translator-matcher"
-import { Globe, Clock, FileText, Award, ArrowRight } from "lucide-react"
+import { Globe, Clock, FileText, Award, ArrowRight, User} from "lucide-react"
 
 export default function TranslatorForm() {
   const [formData, setFormData] = useState({
@@ -28,6 +28,9 @@ export default function TranslatorForm() {
     needsCertification: false,
     additionalNotes: "",
   })
+  const languages = ["English", "Spanish", "German", "French", "Chinese", "Japanese"]
+  const fields = ["Legal", "Medical", "Technical", "Marketing", "Literary", "Academic"]
+  const taskTypes = ["Engineering", "Management", "Miscellaneous", "Translation", "ProofReading", "DTP"]
 
   const [showResults, setShowResults] = useState(false)
   const [translators, setTranslators] = useState<Translator[]>([])
@@ -76,16 +79,37 @@ export default function TranslatorForm() {
       </div>
 
       {!showResults ? (
+        
         <Card className="w-full border border-border/40 shadow-lg animate-fade-in">
           <CardHeader className="pb-2 border-b">
-            <CardTitle className="text-2xl">Making assignment easy</CardTitle>
-            <CardDescription>
-              We combine knowledge and technology to boost your productivity
-            </CardDescription>
+            <div className="flex">
+              <div>
+                  <CardTitle className="text-2xl">Making assignment easy</CardTitle>
+                  <CardDescription>
+                    We combine knowledge and technology to boost your productivity
+                  </CardDescription>
+              </div>
+              <div className=" ml-auto">
+                <div className="flex">
+                    <User></User>
+                    <h2 className="text-md font-medium">User Identification</h2>
+                </div>
+                    <textarea
+                        name="additionalNotes"
+                        value={formData.additionalNotes}
+                        onChange={handleChange}
+                        placeholder=" e.g. #123654"
+                        className=" text-sm p-2 border-[#1d293d] max-w-100 border-1 rounded-md max-h-10 resize-none"
+                      />
+                      
+              </div>
+            </div>
           </CardHeader>
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-8">
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
                 <div className="space-y-6 animate-slide-up stagger-1">
                   <div className="flex items-center gap-2 text-primary font-medium">
                     <Globe className="h-5 w-5" />
@@ -99,13 +123,13 @@ export default function TranslatorForm() {
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select source language" />
                         </SelectTrigger>
+
                         <SelectContent>
-                          <SelectItem value="english">English</SelectItem>
-                          <SelectItem value="spanish">Spanish</SelectItem>
-                          <SelectItem value="french">French</SelectItem>
-                          <SelectItem value="german">German</SelectItem>
-                          <SelectItem value="chinese">Chinese</SelectItem>
-                          <SelectItem value="japanese">Japanese</SelectItem>
+                          {
+                            languages.map((lang, k)=>(
+                              <SelectItem value={lang.toLocaleLowerCase()} key={k}>{lang}</SelectItem>
+                            ))
+                          }
                         </SelectContent>
                       </Select>
                     </div>
@@ -117,34 +141,56 @@ export default function TranslatorForm() {
                           <SelectValue placeholder="Select target language" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="english">English</SelectItem>
-                          <SelectItem value="spanish">Spanish</SelectItem>
-                          <SelectItem value="french">French</SelectItem>
-                          <SelectItem value="german">German</SelectItem>
-                          <SelectItem value="chinese">Chinese</SelectItem>
-                          <SelectItem value="japanese">Japanese</SelectItem>
+                          {
+                            languages.map((lang, k) =>(
+                              <SelectItem value={lang.toLowerCase()} key={k}>{lang}</SelectItem>
+                            ))
+                          }
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="fieldSpecialty">Field Specialty</Label>
-                    <Select onValueChange={(value) => handleSelectChange("fieldSpecialty", value)} required>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select field specialty" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="legal">Legal</SelectItem>
-                        <SelectItem value="medical">Medical</SelectItem>
-                        <SelectItem value="technical">Technical</SelectItem>
-                        <SelectItem value="marketing">Marketing</SelectItem>
-                        <SelectItem value="literary">Literary</SelectItem>
-                        <SelectItem value="academic">Academic</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="fieldSpecialty">Field Specialty</Label>
+                      <Select onValueChange={(value) => handleSelectChange("fieldSpecialty", value)} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select field specialty" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {
+                            fields.map((field, k) =>(
+                              <SelectItem value={field.toLocaleLowerCase()} key={k}>
+                                {field}
+                              </SelectItem>
+                            ))
+                          }
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="taskType">Task Type</Label>
+                      <Select onValueChange={(value) => handleSelectChange("taskType", value)} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select task type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {
+                            taskTypes.map((field, k) =>(
+                              <SelectItem value={field.toLocaleLowerCase()} key={k}>
+                                {field}
+                              </SelectItem>
+                            ))
+                          }
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
+
+                
+
 
                 <div className="space-y-6 animate-slide-up stagger-2">
                   <div className="flex items-center gap-2 text-primary font-medium">
@@ -155,9 +201,9 @@ export default function TranslatorForm() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <Label htmlFor="wordCount">Word Count</Label>
+                        <Label htmlFor="wordCount">Budget</Label>
                         <span className="text-sm text-muted-foreground">
-                          {formData.wordCount.toLocaleString()} words
+                          ${formData.wordCount.toLocaleString()}
                         </span>
                       </div>
                       <Input
@@ -200,63 +246,7 @@ export default function TranslatorForm() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-slide-up stagger-3">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-primary font-medium">
-                    <Award className="h-5 w-5" />
-                    <h2 className="text-lg">Quality Requirements</h2>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <Label htmlFor="technicalLevel">Technical Level</Label>
-                        <span className="text-sm text-muted-foreground">{formData.technicalLevel}%</span>
-                      </div>
-                      <Slider
-                        value={[formData.technicalLevel]}
-                        min={0}
-                        max={100}
-                        step={1}
-                        onValueChange={(value) => handleSliderChange("technicalLevel", value)}
-                        className="py-2"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>General</span>
-                        <span>Highly Technical</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2 pt-2">
-                      <Switch
-                        checked={formData.needsCertification}
-                        onCheckedChange={(checked) => handleSwitchChange("needsCertification", checked)}
-                      />
-                      <Label htmlFor="needsCertification" className="font-medium">
-                        Requires Certified Translation
-                      </Label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="flex items-center gap-2 text-primary font-medium">
-                    <Clock className="h-5 w-5" />
-                    <h2 className="text-lg">Additional Information</h2>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="additionalNotes">Notes or Special Requirements</Label>
-                    <Textarea
-                      name="additionalNotes"
-                      value={formData.additionalNotes}
-                      onChange={handleChange}
-                      placeholder="Any specific requirements or context for your translation..."
-                      className="min-h-[120px] resize-none"
-                    />
-                  </div>
-                </div>
-              </div>
+              
 
               <div className="pt-4 animate-slide-up stagger-4">
                 <Button
