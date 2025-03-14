@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import TranslatorForm from "@/components/translator-form"
 
 export const metadata: Metadata = {
-  title: "Nombre guay",
+  title: "iDISC | Making Assignment Easy",
   description: "Automatic Task Assigner",
 }
 
