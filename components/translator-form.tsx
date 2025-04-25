@@ -28,7 +28,7 @@ export default function TranslatorForm() {
     needsCertification: false,
     additionalNotes: "",
   })
-  const languages = ["English", "Spanish", "German", "French", "Chinese", "Japanese"]
+  const languages = ["Portuguese", "English", "Spanish", "German", "French", "Chinese", "Japanese"]
   const fields = ["Legal", "Medical", "Technical", "Marketing", "Literary", "Academic"]
   const taskTypes = ["Engineering", "Management", "Miscellaneous", "Translation", "ProofReading", "DTP"]
 
@@ -67,20 +67,40 @@ export default function TranslatorForm() {
   }
 
   return (
+    /*
+    * Main
+    */
     <div className="container mx-auto px-4 py-8 max-w-6xl">
+      {/*
+      * Title & Theme
+      */}
       <div className="flex justify-between items-center mb-8">
+        {/*
+        * Title
+        */}
         <div className="flex items-center gap-2">
           <Globe className="h-8 w-8 text-primary" />
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
             iDISC
           </h1>
         </div>
+        {/*
+        * Theme
+        */} 
         <ThemeToggle />
       </div>
 
+      {/*
+      * Ternary Logic
+      */}
       {!showResults ? (
-        
+        /*
+        * Formulary Page
+        */ 
         <Card className="w-full border border-border/40 shadow-lg animate-fade-in">
+          {/*
+          * Header
+          */}
           <CardHeader className="pb-2 border-b">
             <div className="flex">
               <div>
@@ -104,19 +124,38 @@ export default function TranslatorForm() {
                       
               </div>
             </div>
-          </CardHeader>
+          </CardHeader> 
+          {/*
+          * Card Content
+          * Form & Submit Button
+          */}
           <CardContent className="pt-6">
+            {/*
+            * Form
+            */}
             <form onSubmit={handleSubmit} className="space-y-8">
-
+              
+              {/*
+                Card Content:
+                Language Information & Project Details
+              */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
+                {/* 
+                  Language Information
+                */}
                 <div className="space-y-6 animate-slide-up stagger-1">
                   <div className="flex items-center gap-2 text-primary font-medium">
                     <Globe className="h-5 w-5" />
                     <h2 className="text-lg">Language Information</h2>
                   </div>
 
+                  {/*
+                    Source Language and Target Language
+                  */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/*
+                      Source Language
+                    */} 
                     <div className="space-y-2">
                       <Label htmlFor="sourceLanguage">Source Language</Label>
                       <Select onValueChange={(value) => handleSelectChange("sourceLanguage", value)} required>
@@ -133,7 +172,29 @@ export default function TranslatorForm() {
                         </SelectContent>
                       </Select>
                     </div>
-
+                     {/*
+                    * Local Variation
+                    */}
+                    <div className="space-y-2">
+                      <Label htmlFor="SourceVariation">Local Variation</Label>
+                      <Select> {/*onValueChange not implemented!*/}
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a variation" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {
+                            ["Iberian", "Global", "LA", "Mexico", "Argentina", "US", "Chile"].map((vari, k) =>(
+                              <SelectItem value={vari.toLowerCase()} key={k}>{vari}</SelectItem>
+                            ))
+                          }
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  {/*
+                  * Target Language
+                  */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="targetLanguage">Target Language</Label>
                       <Select onValueChange={(value) => handleSelectChange("targetLanguage", value)} required>
@@ -142,16 +203,37 @@ export default function TranslatorForm() {
                         </SelectTrigger>
                         <SelectContent>
                           {
-                            languages.map((lang, k) =>(
-                              <SelectItem value={lang.toLowerCase()} key={k}>{lang}</SelectItem>
+                           languages.map((lang, k) =>(
+                            <SelectItem value={lang.toLowerCase()} key={k}>{lang}</SelectItem>
+                            ))
+                          }
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="targetVariation">Local Variation</Label>
+                      <Select>{/* onValueChange not implemented*/}
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a variation"></SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {
+                            ["Brazil", "Iberian"].map((vari, k)=>(
+                              <SelectItem value={vari.toLowerCase()} key={k}>{vari}</SelectItem>
                             ))
                           }
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
-
+                  {/*
+                    Field Specialty & Task Type
+                  */}
                   <div className="flex gap-4">
+                    {/*
+                    * Field Specialty
+                    */}
                     <div className="space-y-2">
                       <Label htmlFor="fieldSpecialty">Field Specialty</Label>
                       <Select onValueChange={(value) => handleSelectChange("fieldSpecialty", value)} required>
@@ -169,6 +251,9 @@ export default function TranslatorForm() {
                         </SelectContent>
                       </Select>
                     </div>
+                    {/*
+                    * Task Type
+                    */}
                     <div className="space-y-2">
                       <Label htmlFor="taskType">Task Type</Label>
                       <Select onValueChange={(value) => handleSelectChange("taskType", value)} required>
@@ -188,18 +273,24 @@ export default function TranslatorForm() {
                     </div>
                   </div>
                 </div>
-
-                
-
-
+                {/*
+                  Project Details
+                */}
                 <div className="space-y-6 animate-slide-up stagger-2">
                   <div className="flex items-center gap-2 text-primary font-medium">
                     <FileText className="h-5 w-5" />
                     <h2 className="text-lg">Project Details</h2>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="space-y-2">
+                  {/*
+                  * Budget & Urgency
+                  */}
+                  <div className="space-y-4 ">
+
+                    {/*
+                    * Budget
+                    */}
+                    <div className="space-y-2 ">
                       <div className="flex justify-between">
                         <Label htmlFor="wordCount">Budget</Label>
                         <span className="text-sm text-muted-foreground">
@@ -222,6 +313,9 @@ export default function TranslatorForm() {
                       </div>
                     </div>
 
+                    {/*
+                    * Urgency
+                    */}
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <Label htmlFor="urgency">Urgency</Label>
@@ -246,8 +340,10 @@ export default function TranslatorForm() {
                 </div>
               </div>
 
-              
 
+              {/*
+              * Submit Button 
+              */}
               <div className="pt-4 animate-slide-up stagger-4">
                 <Button
                   type="submit"
@@ -271,6 +367,9 @@ export default function TranslatorForm() {
           </CardContent>
         </Card>
       ) : (
+        /*
+         *  Results Page
+         */
         <div className="space-y-6 animate-fade-in">
           <Button variant="outline" onClick={() => setShowResults(false)} className="mb-4">
             Back to Form

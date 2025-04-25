@@ -14,11 +14,18 @@ interface TranslatorResultsProps {
 
 export function TranslatorResults({ translators }: TranslatorResultsProps) {
   const bestTranslator = translators[0]
-
+  
   return (
+    // Component Root
     <div className="space-y-8">
+      {/*
+      * Best Match
+      */}
       <div className="grid grid-cols-1 gap-6">
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 shadow-lg animate-slide-up">
+          {/*
+          * Header 
+          */} 
           <CardHeader className="pb-2">
             <div className="flex justify-between items-start">
               <div>
@@ -34,6 +41,9 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
               </div>
             </div>
           </CardHeader>
+          {/*
+          * Content
+          */} 
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
@@ -101,7 +111,9 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
           </CardContent>
         </Card>
       </div>
-
+      {/*
+      * Comparison
+      */}  
       <Tabs defaultValue="comparison" className="w-full animate-slide-up stagger-1">
         <TabsList className="grid grid-cols-2 mb-4">
           <TabsTrigger value="comparison" className="flex items-center gap-2">
@@ -134,7 +146,7 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
             </CardHeader>
             <CardContent className="pt-6">
               <div className="h-[400px]">
-                <RadarChart translators={translators} />
+                <RadarChart translators={translators.slice(0,2)} />
               </div>
             </CardContent>
           </Card>
