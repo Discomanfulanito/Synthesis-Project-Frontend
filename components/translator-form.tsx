@@ -1,8 +1,10 @@
 "use client"
 
+// Import react things
 import type React from "react"
-
 import { useState } from "react"
+
+// Import shadcn components
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,13 +13,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
+
+// Import own components
 import { ThemeToggle } from "@/components/theme-toggle"
 import { TranslatorResults } from "@/components/translator-results"
+
+// Import translator related
 import type { Translator } from "@/lib/types"
 import { findBestTranslator } from "@/lib/translator-matcher"
+
+// Import logos and badges
 import { Globe, Clock, FileText, Award, ArrowRight, User} from "lucide-react"
 
+
+// TranslatorForm Component
 export default function TranslatorForm() {
+  // Init formData
   const [formData, setFormData] = useState({
     sourceLanguage: "",
     targetLanguage: "",
@@ -28,44 +39,57 @@ export default function TranslatorForm() {
     needsCertification: false,
     additionalNotes: "",
   })
+  // Init supported languages
   const languages = ["Portuguese", "English", "Spanish", "German", "French", "Chinese", "Japanese"]
+  
+  // Init supported fields
   const fields = ["Legal", "Medical", "Technical", "Marketing", "Literary", "Academic"]
+
+  // Init supported taskTypes
   const taskTypes = ["Engineering", "Management", "Miscellaneous", "Translation", "ProofReading", "DTP"]
 
+  // Init showResults bool
   const [showResults, setShowResults] = useState(false)
-  const [translators, setTranslators] = useState<Translator[]>([])
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // Init translators' list
+  const [translators, setTranslators] = useState<Translator[]>([])
+
+  // Init button disabler  
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  // Form submission handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
+
+    setIsSubmitting(true) // Disable submission button
 
     // Simulate API call
     setTimeout(() => {
-      const results = findBestTranslator(formData)
-      setTranslators(results)
-      setShowResults(true)
+      const results = findBestTranslator(formData) // get best translators
+      setTranslators(results) // set best translators
+      setShowResults(true) // show best translators
       setIsSubmitting(false)
     }, 1000)
   }
-
+  
+  // Add changes to formData
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
-
+  // Add selection changes to formData 
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
-
+  // Add slider changes to formData
   const handleSliderChange = (name: string, value: number[]) => {
     setFormData((prev) => ({ ...prev, [name]: value[0] }))
   }
-
+  // Add slider changes to formData
   const handleSwitchChange = (name: string, checked: boolean) => {
     setFormData((prev) => ({ ...prev, [name]: checked }))
   }
-
+  
   return (
     /*
     * Main

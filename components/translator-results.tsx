@@ -1,17 +1,23 @@
 "use client"
 
+// Import shadcn components
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import type { Translator } from "@/lib/types"
 import { BarChart, RadarChart } from "@/components/charts"
+import { Button } from "@/components/ui/button"
+
+// Import logos and badges
 import { CheckCircle, Star, DollarSign, Award, Users, BarChart2 } from "lucide-react"
 
+// Import Translator interface
+import type { Translator } from "@/lib/types"
 interface TranslatorResultsProps {
   translators: Translator[]
 }
 
+
+// TranslatorResults Component
 export function TranslatorResults({ translators }: TranslatorResultsProps) {
   const bestTranslator = translators[0]
   
