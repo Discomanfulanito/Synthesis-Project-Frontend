@@ -173,7 +173,7 @@ export function RadarChart({ translators }: BarChartProps) {
         labels: [
           "Quality",
           "Nº Languages",
-          "Nº Specialities",
+          "Speed",
           "Sector Experience"
         ],
         datasets: translators.slice(0, 4).map((translator, index) => ({
