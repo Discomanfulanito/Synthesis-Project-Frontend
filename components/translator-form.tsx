@@ -22,7 +22,7 @@ export default function TranslatorForm() {
     sourceLanguage: "",
     targetLanguage: "",
     fieldSpecialty: "",
-    wordCount: 1000,
+    pricePerHour: 14,
     urgency: 3,
     technicalLevel: 50,
     needsCertification: false,
@@ -99,7 +99,7 @@ export default function TranslatorForm() {
                         value={formData.additionalNotes}
                         onChange={handleChange}
                         placeholder=" e.g. #123654"
-                        className=" text-sm p-2 border-[#1d293d] max-w-100 border-1 rounded-md max-h-10 resize-none"
+                        className=" border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex field-sizing-content py-2 pl-1 w-full rounded-md border bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] resize-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                       />
                       
               </div>
@@ -201,24 +201,24 @@ export default function TranslatorForm() {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <Label htmlFor="wordCount">Budget</Label>
+                        <Label htmlFor="pricePerHour">Price($)/Hour</Label>
                         <span className="text-sm text-muted-foreground">
-                          ${formData.wordCount.toLocaleString()}
+                          ${formData.pricePerHour.toLocaleString()}
                         </span>
                       </div>
                       <Input
                         type="range"
-                        name="wordCount"
-                        value={formData.wordCount}
+                        name="pricePerHour"
+                        value={formData.pricePerHour}
                         onChange={handleChange}
-                        min={100}
-                        max={50000}
-                        step={100}
+                        min={5}
+                        max={20}
+                        step={0.5}
                         className="w-full"
                       />
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>100</span>
-                        <span>50,000</span>
+                        <span>$5</span>
+                        <span>$20</span>
                       </div>
                     </div>
 

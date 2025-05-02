@@ -15,7 +15,7 @@ export interface TranslationTask {
     sourceLanguage: string
     targetLanguage: string
     fieldSpecialty: string
-    wordCount: number
+    pricePerHour: number
     urgency: number
     technicalLevel: number
     needsCertification: boolean
