@@ -5,11 +5,8 @@ interface TopbarProps {
 
 
 export default function Topbar ({isManager, setIsManager}: TopbarProps) {
-
-
-
     return (
-        <section  style={{marginLeft: "-35%"}} className=" bg-red flex items-start gap-3 font-semibold mt-5 mb-auto ml-10 w-6xl">
+        <section  style={{position: 'fixed', top:0, left:0}} className=" bg-red flex items-start gap-3 font-semibold mt-5 mb-auto ml-10 w-6xl">
             <div className=" hover:cursor-pointer" onClick={()=>setIsManager(true)}>
                 Manage tasks
             </div>
