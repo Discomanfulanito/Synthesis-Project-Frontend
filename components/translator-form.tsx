@@ -94,7 +94,7 @@ export default function TranslatorForm() {
     /*
     * Main
     */
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container my-auto mx-auto px-4 py-8 max-w-6xl">
       {/*
       * Title & Theme
       */}
