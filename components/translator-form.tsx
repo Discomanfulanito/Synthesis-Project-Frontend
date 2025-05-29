@@ -42,12 +42,15 @@ export default function TranslatorForm() {
   })
   // Init supported languages
   const languages = ["Portuguese", "English", "Spanish", "German", "French", "Chinese", "Japanese"]
-  
+  const sourceLanguages = ["Catalan", "English", "Spanish (Iberian)", "French", "German", "Spanish (Global)", "Dutch", "Italian", "Spanish (LA)", "Portuguese (Brazil)", "Galician", "Polish", "Portuguese (Iberian)", "Russian", "Norwegian", "Estonian", "Swedish", "Japanese", "Czech", "Danish", "Arabic", "Basque", "English (US)", "Spanish (Mexico)", "Chinese (Simplified)", "Slovak", "Portuguese (SOURCE)", "English (UK)", "French (Canadian)", "Korean", "Persian", "Greek", "Quechua", "Spanish (SOURCE)"]  
+  const targetLanguages = ["Catalan", "Galician", "Spanish (Iberian)", "Portuguese (Brazil)", "Spanish (Global)", "English", "Basque", "Spanish (LA)", "French", "Portuguese (Iberian)", "German", "Italian", "Romanian", "Russian", "Chinese (Simplified)", "Dutch", "Arabic", "Valencian", "Polish", "Quechua", "Czech", "Swedish", "Danish", "Chinese(Traditional)", "Hungarian", "Turkish", "Korean", "Japanese", "Quiche", "Hebrew", "Norwegian", "Guaraní", "Croat", "Latvian", "Lithuanian", "Bulgarian", "Slovak", "Majorcan", "Flemish", "Scottish", "Greek", "Finnish", "Estonian", "Slovenian", "Spanish (Mexico)", "English (UK)", "Spanish (Argentina)", "Spanish (US)", "English (US)", "Qeqchi", "Portuguese (SOURCE)", "Aymara", "French (Canadian)", "Bahasa", "Ukrainian", "Kazakh", "Uzbek", "Indonesian", "Irish", "Maltese", "Asturian", "Fulah", "Mixteco", "Persian", "French (Switzerland)", "Urdu", "Azeri", "Spanish (Chile)"]
+
+
   // Init supported fields
   const fields = ["Legal", "Medical", "Technical", "Marketing", "Literary", "Academic"]
 
   // Init supported taskTypes
-  const taskTypes = ["Engineering", "Management", "Miscellaneous", "Translation", "ProofReading", "DTP"]
+  const taskTypes = ["Miscellaneous","Engineering", "Management", "Translation", "ProofReading", "DTP","PostEditing", "TEST", "Spotcheck", "LanguageLead", "TranslationOnly", "Training", "ProofReadingOnly"]
 
   // Init showResults bool
   const [showResults, setShowResults] = useState(false)
