@@ -6,16 +6,17 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Filter, Search, User } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
-// Mock data for translators - just showing a few for the demo
+// Fake translators - just for demo 
 const initialTranslators = [
   {
     id: 1,
     name: "Emma Johnson",
     language: "Spanish",
     status: "occupied",
-    project: "Marketing Website Localization",
-    deadline: "2023-05-10",
+    project: "170344",
+    deadline: "22-05-2025",
     progress: 85,
   },
   {
@@ -27,12 +28,13 @@ const initialTranslators = [
     deadline: null,
     progress: null,
   },
-  {components
-ui
-table.tsx
-,
-    project: "Product Documentation",
-    deadline: "2023-05-15",
+  {
+    id: 3,
+    name: "Daniel Qiu",
+    language: "Japanese",
+    status: "occupied",
+    project: "502234",
+    deadline: "30-05-2025",
     progress: 45,
   },
   {
@@ -40,8 +42,8 @@ table.tsx
     name: "Liam Wilson",
     language: "French",
     status: "occupied",
-    project: "Mobile App Localization",
-    deadline: "2023-05-08",
+    project: "432960",
+    deadline: "01-06-2025",
     progress: 92,
   },
   {
@@ -55,7 +57,8 @@ table.tsx
   },
 ]
 
-export default function TranslatorsPage() {
+export default function ManagerPage() {
+  // initialize useState vars
   const [translators, setTranslators] = useState(initialTranslators)
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState("all")
@@ -89,12 +92,12 @@ export default function TranslatorsPage() {
   })
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="mx-10 py-6">
       <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Translator Management</h1>
           <p className="text-muted-foreground">
-            Manage translator availability and assignments (showing 5 of ~10,000 translators)
+            Manage translator availability and assignments
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -131,7 +134,7 @@ export default function TranslatorsPage() {
               <TableHead className="w-[200px]">Name</TableHead>
               <TableHead>Language</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">Project</TableHead>
+              <TableHead className="hidden md:table-cell">Project ID</TableHead>
               <TableHead className="hidden md:table-cell">Progress</TableHead>
               <TableHead className="hidden md:table-cell">Deadline</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -164,7 +167,8 @@ export default function TranslatorsPage() {
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
                   {translator.deadline ? (
-                    new Date(translator.deadline).toLocaleDateString()
+                    translator.deadline
+                    // new Date(translator.deadline).toLocaleDateString()
                   ) : (
                     <span className="text-muted-foreground">-</span>
                   )}

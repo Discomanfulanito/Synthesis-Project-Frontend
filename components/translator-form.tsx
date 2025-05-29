@@ -30,14 +30,15 @@ import { Globe, Clock, FileText, Award, ArrowRight, User} from "lucide-react"
 export default function TranslatorForm() {
   // Init formData
   const [formData, setFormData] = useState({
-    sourceLanguage: "",
+    sourceLanguage: "", 
     targetLanguage: "",
-    fieldSpecialty: "",
-    pricePerHour: 14,
-    urgency: 3,
-    technicalLevel: 50,
-    needsCertification: false,
-    additionalNotes: "",
+    pricePerHour: 14, 
+    taskType: "",    
+    manufacturer: "",
+    manufacturerIndustry: "",
+    manufacturerSubindustry: "",
+    minQuality: 0,
+    wildcard: "",
   })
   // Init supported languages
   const languages = ["Portuguese", "English", "Spanish", "German", "French", "Chinese", "Japanese"]
@@ -91,9 +92,6 @@ export default function TranslatorForm() {
   }
   
   return (
-    /*
-    * Main
-    */
     <div className="container my-auto mx-auto px-4 py-8 max-w-6xl">
       {/*
       * Title & Theme
@@ -196,24 +194,6 @@ export default function TranslatorForm() {
                         </SelectContent>
                       </Select>
                     </div>
-                     {/*
-                    * Local Variation
-                    */}
-                    <div className="space-y-2">
-                      <Label htmlFor="SourceVariation">Local Variation</Label>
-                      <Select> {/*onValueChange not implemented!*/}
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a variation" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {
-                            ["Iberian", "Global", "LA", "Mexico", "Argentina", "US", "Chile"].map((vari, k) =>(
-                              <SelectItem value={vari.toLowerCase()} key={k}>{vari}</SelectItem>
-                            ))
-                          }
-                        </SelectContent>
-                      </Select>
-                    </div>
                   </div>
                   {/*
                   * Target Language
@@ -229,22 +209,6 @@ export default function TranslatorForm() {
                           {
                            languages.map((lang, k) =>(
                             <SelectItem value={lang.toLowerCase()} key={k}>{lang}</SelectItem>
-                            ))
-                          }
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="targetVariation">Local Variation</Label>
-                      <Select>{/* onValueChange not implemented*/}
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a variation"></SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {
-                            ["Brazil", "Iberian"].map((vari, k)=>(
-                              <SelectItem value={vari.toLowerCase()} key={k}>{vari}</SelectItem>
                             ))
                           }
                         </SelectContent>
@@ -336,33 +300,10 @@ export default function TranslatorForm() {
                         <span>$20</span>
                       </div>
                     </div>
-
-                    {/*
-                    * Urgency
-                    */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <Label htmlFor="urgency">Urgency</Label>
-                        <span className="text-sm text-muted-foreground">
-                          {formData.urgency} {formData.urgency === 1 ? "day" : "days"}
-                        </span>
-                      </div>
-                      <Slider
-                        value={[formData.urgency]}
-                        min={1}
-                        max={30}
-                        step={1}
-                        onValueChange={(value) => handleSliderChange("urgency", value)}
-                        className="py-2"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>Urgent (1 day)</span>
-                        <span>Standard (30 days)</span>
-                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              
 
 
               {/*
@@ -398,7 +339,7 @@ export default function TranslatorForm() {
           <Button variant="outline" onClick={() => setShowResults(false)} className="mb-4">
             Back to Form
           </Button>
-          <TranslatorResults translators={translators} />
+        <TranslatorResults translators={translators} />
         </div>
       )}
     </div>

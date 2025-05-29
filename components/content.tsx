@@ -3,7 +3,7 @@
 import { useState } from "react"
 import  Topbar  from "./topbar"
 import TranslatorForm  from "./translator-form"
-import ManagerPanel from "./manager-panel"
+import ManagerPage from "./manager"
 export default function Content() {
 
     const [isManager, setIsManager] = useState(false)
@@ -13,13 +13,11 @@ export default function Content() {
             <Topbar isManager={isManager} setIsManager={setIsManager}/>
 
             {!isManager&&
-            
             <TranslatorForm />
             }
             {isManager && 
-            <ManagerPanel />
+            <ManagerPage />
             }
-
         </> 
     )
 }

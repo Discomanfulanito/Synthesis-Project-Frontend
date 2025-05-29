@@ -14,12 +14,11 @@ export interface Translator {
 export interface TranslationTask {
     sourceLanguage: string
     targetLanguage: string
-    fieldSpecialty: string
+    taskType: string
+    manufacturer: string
+    manufacturerIndustry: string
+    manufacturerSubindustry: string
+    minQuality: string
+    wildcard: string
     pricePerHour: number
-    urgency: number
-    technicalLevel: number
-    needsCertification: boolean
-    additionalNotes: string
   }
-  
-  

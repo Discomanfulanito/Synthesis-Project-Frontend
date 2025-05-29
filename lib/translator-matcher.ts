@@ -74,34 +74,22 @@ const mockTranslators: Translator[] = [
 ]
 
 // Function to find the best translator based on task requirements
-export function findBestTranslator(task: TranslationTask): Translator[] {
-  // In a real app, this would be a more sophisticated algorithm
-  // For demo purposes, we'll use a simple scoring system
+export async function findBestTranslator(task: TranslationTask): Translator[] {
+  // 'TASK_TYPE', 'SOURCE_LANG', 'TARGET_LANG', 'MANUFACTURER', 
+  // 'MANUFACTURER_INDUSTRY', 'MANUFACTURER_SUBINDUSTRY',
+  // 'SELLING_HOURLY_PRICE','MIN_QUALITY', 'WILDCARD', 'ASSIGNED'
+  //
 
-  const scoredTranslators = mockTranslators.map((translator) => {
-    let score = 0
+  console.log(JSON.stringify(task))
 
-    // Language match
-    if (translator.languages.includes(task.sourceLanguage)) score += 10
-    if (translator.languages.includes(task.targetLanguage)) score += 10
-
-    // Specialty match
-    if (translator.specialties.includes(task.fieldSpecialty)) score += 15
-
-
-    // Experience (0-15 points)
-    score += Math.min(translator.yearsExperience, 15)
-
-    // quality (0-10 points)
-    score += translator.quality * 2
-
-    // Technical level match (0-10 points)
-    const techLevelMatch = 10 - Math.abs(translator.technicalAccuracy - task.technicalLevel) / 10
-    score += techLevelMatch
-
-    return { ...translator, score }
+  translators = await fetch("http://localhost:8000/get-translators",{
+    method: "POST",
+    headers: { "Content-Type": "application/json"},
+    body: JSON.stringify(task)
+    
   })
-
+  console.log("Fsdfsajd")
+  console.log("aaaa:",translators)
   // Sort by score (highest first)
   return scoredTranslators.sort((a, b) => (b as any).score - (a as any).score).map(({ score, ...rest }) => rest)
 }
