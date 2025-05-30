@@ -21,6 +21,7 @@ interface TranslatorResultsProps {
 export function TranslatorResults({ translators }: TranslatorResultsProps) {
   const bestTranslator = translators[0]
   
+  console.log(translators)
   return (
     // Component Root
     <div className="space-y-8">
