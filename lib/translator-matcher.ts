@@ -79,7 +79,7 @@ export async function findBestTranslator(task: TranslationTask): Translator[] {
   // 'MANUFACTURER_INDUSTRY', 'MANUFACTURER_SUBINDUSTRY',
   // 'SELLING_HOURLY_PRICE','MIN_QUALITY', 'WILDCARD', 'ASSIGNED'
   //
-  const clean_data = {...task, 'pricePerHour': Number(task.pricePerHour)}
+  const clean_data = {...task, 'pricePerHour': Number(task.pricePerHour), 'minQuality': Number(task.minQuality)}
 
   const response = await fetch("http://localhost:8000/get-translators",{
     method: "POST",
@@ -89,5 +89,17 @@ export async function findBestTranslator(task: TranslationTask): Translator[] {
   const result = await response.json()
 
   console.log("result", result)
+  const transform = result.map((tr)=>({
+    'name': tr['TRANSLATOR'],
+    'languages': [tr['SOURCE_LANG'], tr['TARGET_LANG']],
+    'ratePerHour': Number(tr['HOURLY_RATE']),
+    'quality': Number(tr['AVG_QUALITY_BY_LG']),
+    'yearsExperience': 10,
+    'numTasks': Number(tr['NUM_TASKS']),
+    'similarity':Number(tr['Similarity Score'])*100,
+    'tags':[],
+    'specialties':[]
+  }))
+  console.log("transform: ", transform)
   // Sort by score (highest first)
-  return mockTranslators
+  return transform

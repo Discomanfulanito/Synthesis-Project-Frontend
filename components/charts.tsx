@@ -41,13 +41,13 @@ export function BarChart({ translators }: BarChartProps) {
     chartInstance.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["Experience (Years)", "Quality (out of 10)", "Sector Experience", "Price (per hour)"],
+        labels: ["Num Tasks", "Quality","Similarity%", "Price (per hour)"],
         datasets: translators.slice(0, 4).map((translator, index) => ({
           label: translator.name,
           data: [
-            translator.yearsExperience,
-            translator.quality*2,
-            translator.sectorExperience,
+            translator.numTasks,
+            translator.quality,
+            translator.similarity,
             translator.ratePerHour // Multiply by 10 to make it visible on the chart
           ],
           backgroundColor: colors[index].bg,

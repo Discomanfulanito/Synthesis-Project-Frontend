@@ -60,8 +60,8 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-background/80 rounded-lg p-4 flex flex-col">
-                    <span className="text-muted-foreground text-sm">Experience</span>
-                    <span className="text-xl font-semibold mt-1">{bestTranslator.yearsExperience} years</span>
+                    <span className="text-muted-foreground text-sm">Tasks Done</span>
+                    <span className="text-xl font-semibold mt-1">{bestTranslator.numTasks} tasks</span>
                   </div>
                   <div className="bg-background/80 rounded-lg p-4 flex flex-col">
                     <span className="text-muted-foreground text-sm">Quality</span>
@@ -80,6 +80,10 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
                     ))}
                   </div>
                 </div>
+                  <div className="bg-background/80 rounded-lg p-4 flex flex-col">
+                    <span className="text-muted-foreground text-sm">Similarity</span>
+                    <span className="text-xl font-semibold mt-1 flex items-center">{bestTranslator.similarity}%</span>
+                  </div>
                 </div>
 
               </div>
@@ -91,8 +95,8 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
                 <div className="bg-background/80 rounded-lg p-4">
                   <p className="text-sm text-muted-foreground mb-4">
                     {bestTranslator.name} is the ideal match for your project based on your specific requirements. With{" "}
-                    {bestTranslator.yearsExperience} years of experience and specialization in {" "}
-                    {bestTranslator.specialties.join(", ")}, they offer the perfect balance of expertise, quality, and
+                    {bestTranslator.numTasks} tasks done, has experience with tasks like yours,
+                    and their skills offer the perfect balance of expertise, quality, and
                     value.
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
@@ -181,8 +185,8 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-2">
                   <div className="bg-secondary/50 rounded-lg p-3 flex flex-col">
-                    <span className="text-muted-foreground text-xs">Experience</span>
-                    <span className="text-base font-semibold mt-1">{translator.yearsExperience} years</span>
+                    <span className="text-muted-foreground text-xs">Tasks Done</span>
+                    <span className="text-base font-semibold mt-1">{translator.numTasks} tasks</span>
                   </div>
                   <div className="bg-secondary/50 rounded-lg p-3 flex flex-col">
                     <span className="text-muted-foreground text-xs">Quality</span>
@@ -193,8 +197,8 @@ export function TranslatorResults({ translators }: TranslatorResultsProps) {
                   </div>
                 </div>
                 <div className="bg-secondary/50 rounded-lg p-3">
-                  <span className="text-muted-foreground text-xs">Specialties</span>
-                  <p className="text-sm font-medium mt-1">{translator.specialties.join(", ")}</p>
+                  <span className="text-muted-foreground text-xs">Similarity</span>
+                  <p className="text-sm font-medium mt-1">{translator.similarity}%</p>
                 </div>
                 <Button variant="outline" size="sm" className="w-full">
                   Contact This Translator
