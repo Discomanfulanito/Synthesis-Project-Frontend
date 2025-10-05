@@ -12,6 +12,15 @@ A user-friendly web application that automates the matching process while consid
 This repo contains solely the front-end implementation. The back-end remains private.
 
 ## Showcase
+![](sc/sc1)
+![](sc/sc2)
+![](sc/sc3)
+![](sc/sc4)
+![](sc/sc5)
+![](sc/sc6)
+![](sc/sc7)
+![](sc/sc8)
+![](sc/sc9)
 
 ## Tech Stack
 The project was developed using the ReactJS framework, as well as the NextJS framework on top of it. This allowed us to work on a beautiful interconnected single page application, and thus avoiding some of the problems that araise from routing and nesting pages.
